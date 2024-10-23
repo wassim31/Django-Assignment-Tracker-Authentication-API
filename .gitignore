@@ -1,1 +1,2 @@
-*.my_pgpass
+.my_pgpass
+*.sh
