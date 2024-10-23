@@ -19,6 +19,6 @@ from django.urls import path
 from rest_framework import urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('auth/', admin.site.urls),
 
 ]
