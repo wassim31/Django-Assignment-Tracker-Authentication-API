@@ -23,7 +23,6 @@ class AuthenticationTests(APITestCase):
             email='testuser@example.com', 
             password='testpass123'
         )
-        self.login_url = reverse('login') 
         self.token_url = reverse('token_obtain_pair')  
         self.logout_url = reverse('logout') 
     
@@ -45,24 +44,32 @@ class AuthenticationTests(APITestCase):
             'password': 'wrongpassword'
         })
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertIn('error', response.data)
+        self.assertIn('detail', response.data)
+        self.assertEqual(response.data['detail'], 'No active account found with the given credentials')
+
         
     def test_logout_success(self):
+        # First, log in to get the access token
         login_response = self.client.post(self.token_url, {
             'username': 'testuser',
             'password': 'testpass123'
         })
-        refresh_token = login_response.data['refresh']
+        self.assertEqual(login_response.status_code, status.HTTP_200_OK)
+        access_token = login_response.data['access']  # Get the access token
+
+        # Set the access token in the Authorization header
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {access_token}')
         
-        response = self.client.post(self.logout_url, {
-            'refresh': refresh_token
-        })
+        # Now attempt to log out
+        response = self.client.post(self.logout_url)
         self.assertEqual(response.status_code, status.HTTP_205_RESET_CONTENT)
 
+
     def test_logout_failure_without_token(self):
-        response = self.client.post(self.logout_url)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('detail', response.data)
+            response = self.client.post(self.logout_url)
+            self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+            self.assertIn('detail', response.data)
+
 
     def test_refresh_token_success(self):
         login_response = self.client.post(self.token_url, {

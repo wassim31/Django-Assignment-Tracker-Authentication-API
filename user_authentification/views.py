@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import RegisterSerializer, OTPVerificationSerializer, LoginSerializer
 
 logger = logging.getLogger(__name__)
@@ -32,12 +34,18 @@ class OTPVerificationView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
-            request.auth.blacklist()
+            # Get the user's current token
+            auth = JWTAuthentication()
+            raw_token = request.META.get('HTTP_AUTHORIZATION').split()[1]
+            token = OutstandingToken.objects.get(token=raw_token)
+            # Blacklist the token
+            BlacklistedToken.objects.create(token=token)
             return Response({"detail": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -51,23 +59,15 @@ class LoginView(TokenObtainPairView):
         response = super().post(request, *args, **kwargs)
 
         if response.status_code == status.HTTP_200_OK:
-            # Add additional user info to the response if needed
+            # Use validated data from the serializer to get the user details
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.user  # This should provide an authenticated user
+
             response.data['user_info'] = {
-                'username': request.data.get('username'),
-                'email': request.data.get('email'),
+                'username': user.username,
+                'email': user.email,
             }
 
         return response
 
-    def handle_exception(self, exc):
-        """Override to customize error responses."""
-        logger.error(f"Token request failed: {str(exc)}")
-        response = super().handle_exception(exc)
-        
-        if response.status_code == status.HTTP_401_UNAUTHORIZED:
-            response.data = {
-                'error': 'Invalid credentials or user is inactive.',
-                'status_code': response.status_code
-            }
-        
-        return response
