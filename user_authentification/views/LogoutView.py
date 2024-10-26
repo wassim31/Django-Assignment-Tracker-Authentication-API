@@ -8,7 +8,6 @@ class LogoutView(APIView):
 
     def post(self, request):
         try:
-            # Blacklist the current token
             request.auth.blacklist()
             return Response({"detail": "Successfully logged out."}, status=205)
         except Exception as e:

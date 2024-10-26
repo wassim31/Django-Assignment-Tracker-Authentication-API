@@ -1,6 +1,5 @@
 from common_imports import *
 
-User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
     otp = serializers.CharField(write_only=True, required=False)
