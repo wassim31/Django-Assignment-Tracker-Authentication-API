@@ -1,4 +1,4 @@
-from common_imports import *
+from .common_imports import *
 
 class OTPVerificationSerializer(serializers.Serializer):
     email = serializers.EmailField()

@@ -11,12 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import environ
 
-
-# to import the credentials for smtp service (for not hardcoding it)
-env = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%=7@_*un+x3k*!h1*ic63jq*r2#8wf!uriyrpr(*$qnc+--b!b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,11 +79,21 @@ WSGI_APPLICATION = 'attraxia.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "OPTIONS": {
             "service": "my_service", 
             "passfile": ".my_pgpass", 
         },
+    }
+}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'attraxia',
+        'USER': 'wass',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -145,15 +150,15 @@ REST_FRAMEWORK = {
     ],
 }
 
-AUTH_USER_MODEL = 'user_authentification.CustomUser'
-
+AUTH_USER_MODEL = 'user_authentification.CustomUser' 
+ 
 # Email settings for OTP and verification
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.your-email-provider.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_ = 'wassim.boussebha@inttic.dz'
+EMAIL_HOST_PASSWORD = 'doudi123'
 
 import logging
 

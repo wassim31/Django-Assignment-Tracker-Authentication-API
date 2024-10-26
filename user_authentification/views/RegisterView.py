@@ -1,8 +1,10 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from serializers import RegisterSerializer
+from .serializers import RegisterSerializer
+from rest_framework.views import APIView
 
-class RegisterView(generics.CreateAPIView):
+
+class RegisterView(APIView):
     serializer_class = RegisterSerializer
     
     def post(self, request, *args, **kwargs):

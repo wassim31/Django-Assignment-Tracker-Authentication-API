@@ -5,9 +5,3 @@ from django.utils.crypto import get_random_string
 
 User = get_user_model()
 
-__all__ = [
-    'serializers',
-    'send_mail',
-    'get_user_model',
-    'get_random_string',
-]
