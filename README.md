@@ -20,7 +20,8 @@
     - Returns success message
 
 5. **Account Activation:** `/activate-account/`
-    please get the activation code from the tty , due to the issue
+   
+   -  please get the activation code from the tty , due to the issue
     ![image](https://github.com/user-attachments/assets/dca74bb1-1682-43c4-a0b8-19729bff2306)
 
     -Method: `POST`
