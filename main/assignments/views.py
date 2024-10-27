@@ -10,7 +10,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
 
-    def update(self, request, *args, **kwargs):
+    def create_update(self, request, *args, **kwargs):
         assignment = self.get_object()
         old_status = assignment.status
         response = super().update(request, *args, **kwargs)

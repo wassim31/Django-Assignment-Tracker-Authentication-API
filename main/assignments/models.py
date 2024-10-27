@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import CustomUserManager as User
+from accounts.models import CustomUserProfile as User
 
 class Assignment(models.Model):
     STATUS_CHOICES = [
@@ -11,7 +11,7 @@ class Assignment(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField()
-    #assignee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='todo')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
