@@ -1,43 +1,61 @@
-from rest_framework import viewsets, status
-from rest_framework.response import Response
+from rest_framework import viewsets, generics, permissions, filters
 from .models import Assignment, AssignmentStatusLog
 from .serializers import AssignmentSerializer, AssignmentStatusLogSerializer
-from django.utils import timezone
-from channels.layers import get_channel_layer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import PageNumberPagination
 from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+import json
 
-class AssignmentViewSet(viewsets.ModelViewSet):
+def broadcast_assignment_update(instance):
+    channel_layer = get_channel_layer()
+    data = AssignmentSerializer(instance).data
+    async_to_sync(channel_layer.group_send)(
+        'assignment_updates', 
+        {'type': 'send_assignment_update', 'data': json.dumps(data)}
+    )
+
+class AssignmentPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+    
+class AssignmentListCreateView(generics.ListCreateAPIView):
+    queryset = Assignment.objects.all().order_by('-created_at')
+    serializer_class = AssignmentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['status', 'assignee']
+    search_fields = ['name', 'description']
+    ordering_fields = ['created_at', 'updated_at']
+    pagination_class = AssignmentPagination
+
+    def perform_create(self, serializer):
+        serializer.save()
+        broadcast_assignment_update(instance)
+
+
+class AssignmentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    def create_update(self, request, *args, **kwargs):
-        assignment = self.get_object()
-        old_status = assignment.status
-        response = super().update(request, *args, **kwargs)
+    def perform_update(self, serializer):
+        instance = self.get_object()
+        old_status = instance.status
+        instance = serializer.save()
+        new_status = instance.status
+        broadcast_assignment_update(instance)
 
-        new_status = request.data.get('status')
-        if new_status and new_status != old_status:
+        if old_status != new_status:
             AssignmentStatusLog.objects.create(
-                assignment=assignment,
-                status=new_status,
-                timestamp=timezone.now()
+                assignment=instance,
+                old_status=old_status,
+                new_status=new_status
             )
 
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)(
-                'assignments',  
-                {
-                    'type': 'status_update',
-                    'message': {
-                        'assignment_id': assignment.id,
-                        'new_status': new_status,
-                        'timestamp': timezone.now().isoformat(),
-                    }
-                }
-            )
-
-        return response
-
+        broadcast_assignment_update(instance)
+    
 class AssignmentStatusLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AssignmentStatusLog.objects.all()
     serializer_class = AssignmentStatusLogSerializer
