@@ -25,7 +25,7 @@
    [#1](https://github.com/wassim31/attraxia_django_assessment/issues/1)
     ![image](https://github.com/user-attachments/assets/dca74bb1-1682-43c4-a0b8-19729bff2306)
 
-    -Method: `POST`
+    - Method: `POST`
     - Input: Activation code
     - Activates user account so that users can login
 
