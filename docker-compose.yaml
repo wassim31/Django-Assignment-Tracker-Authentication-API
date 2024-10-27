@@ -5,7 +5,7 @@ services:
     build: .
     container_name: app_api
     volumes:
-      - ./authen:/app
+      - ./main:/app
       - ./requirements.txt:/app/requirements.txt
     ports:
       - "8000:8000"
