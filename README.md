@@ -19,7 +19,7 @@
     - Input: First name, last name, email, and password
     - Returns success message
 
-5. **Account Activation:** `/activate-account/`
+5. ** OTP Email Account Activation:** `/activate-account/`
    
    - please get the activation code from the tty , due to the issue
    [#1](https://github.com/wassim31/attraxia_django_assessment/issues/1)
