@@ -64,4 +64,4 @@
 
 ### 2- Assignments endpoints
 
-- Just type : 127.0.0.1:8000/api/assignments (use DRF postman-like page)
+- Just type : `127.0.0.1:8000/api/assignments` (use DRF postman-like page)
