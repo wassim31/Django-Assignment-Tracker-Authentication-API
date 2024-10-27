@@ -1,2 +1,80 @@
-.my_pgpass
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django migrations
+**/migrations/
+
+# Django cache and other runtime files
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.pkl
+
+# Environment variables and settings files
 .env
+*.env
+
+# Unit test / coverage reports
+.coverage
+*.cover
+coverage.xml
+*.log
+htmlcov/
+nosetests.xml
+pytest_cache/
+.tox/
+.cache/
+.pytest_cache/
+
+# Static files and media files
+/static/
+media/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# macOS files
+.DS_Store
+
+# PyCharm files
+*.idea
+
+# VS Code files
+.vscode/
+
+# MySQL backup files
+*.sql
+
+# Docker-related files
+*.dockerfile
+*.env.docker
+docker-compose*.yml
+
+# Node.js
+node_modules/
+
+# Other unnecessary files
+*.bak
+*.swp
+*.swo
+
+# Ignore any .gitignore file for submodules
+!.gitignore
