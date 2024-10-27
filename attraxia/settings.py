@@ -152,15 +152,14 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'accounts.CustomUserProfile'
 
-# Email settings for OTP and verification
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_ = os.getenv('EMAIL_HOST_')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'wassim.boussebha@inttic.dz'
+EMAIL_HOST_PASSWORD = 'Wassim0775786469!'
 
-print(EMAIL_HOST_)
+#print(EMAIL_HOST_)
 
 LOGGING = {
     'version': 1,
