@@ -64,15 +64,6 @@ class PasswordResetVerifySerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True, style={'input_type': 'password'}, validators=[validate_password])
 
 
-class EmailChangeSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-
-
-class EmailChangeVerifySerializer(serializers.Serializer):
-    code = serializers.CharField()
-    new_email = serializers.EmailField()
-
-
 class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     new_password = serializers.CharField(write_only=True, validators=[validate_password], style={'input_type': 'password'})

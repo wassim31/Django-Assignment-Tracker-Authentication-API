@@ -1,6 +1,6 @@
 ## API Endpoints (must be a SwaggerAPI template, DRF includes built-in postman for testing)
 
-### 1- Accounts endpoints 
+### 1- Accounts endpoints (Using APIView)
 
 1. **User account Information:** `/accounts/`
     - Method: `GET`
@@ -46,22 +46,14 @@
     - Input: Verification code and new password
     - Resets the user's password
 
-9. **Email Change Request:** `/email-change/`
-    - Method: `POST`
-    - Requires authentication
-    - Sends a verification code for email change to the user's email
 
-10. **Email Change Verify:** `/email-change/verify/`
-    - Method: `POST`
-    - Input: Verification code and new email
-    - Changes the user's email
 
-11. **Password Change:** `/password-change/`
+9. **Password Change:** `/password-change/`
     - Method: `POST`
     - Requires authentication
     - Input: Old password and new password
     - Changes the user's password
 
-### 2- Assignments endpoints
+### 2- Assignments endpoints (using ViewSet)
 
-- Just type : `127.0.0.1:8000/api/assignments` (use DRF postman-like page)
+- Just type : `127.0.0.1:8000/api/assignments` (use DRF postman-like page) or curl and specify the http method

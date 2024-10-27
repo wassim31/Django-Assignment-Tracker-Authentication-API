@@ -14,8 +14,6 @@ urlpatterns = [
     path('password-change/', views.PasswordChangeView.as_view(), name='password-change'),
     path('password-reset/', views.PasswordResetView.as_view(), name='password-reset'),
     path('password-reset/verify/', views.PasswordResetVerifyView.as_view(), name='password-reset-verify'),
-    path('email-change/', views.EmailChangeView.as_view(), name='email-change'),
-    path('email-change/verify/', views.EmailChangeVerifyView.as_view(), name='email-change-verify'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
