@@ -21,7 +21,7 @@ services:
     container_name: app_db
     environment:
       POSTGRES_DB: attraxia
-      POSTGRES_USER: wass
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
