@@ -159,8 +159,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_ = os.getenv('EMAIL_HOST_')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'wassim.boussebha@inttic.dz'
+EMAIL_HOST_PASSWORD = 'Wassim0775786469!'
 
 #print(EMAIL_HOST_)
 
@@ -188,10 +188,12 @@ LOGGING = {
 
 CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000']
 
+# Allow credentials such as cookies to be included in the request
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# Allow specific headers in the CORS request
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -203,6 +205,7 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+# Allow specific methods in the CORS request
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
