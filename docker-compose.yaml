@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: app_api
+    volumes:
+      - ./authen:/app
+      - ./requirements.txt:/app/requirements.txt
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=authenticator.settings
+      - DEBUG=True
+      - DATABASE_URL=postgres://wass:root@postgres:5432/attraxia
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    container_name: app_db
+    environment:
+      POSTGRES_DB: attraxia
+      POSTGRES_USER: wass
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
