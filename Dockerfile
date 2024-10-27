@@ -19,4 +19,4 @@ RUN pip install --upgrade pip \
 COPY . /app
 
 # Run migrations and start the application
-CMD ["bash", "-c", "python manage.py makemigrations accounts && python manage.py migrate accounts && python manage.py makemigrations assignments && python manage.py migrate assignments && python manage.py runserver 0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py makemigrations assignments && python manage.py migrate assignments && python manage.py runserver 0.0.0.0:8000"]
