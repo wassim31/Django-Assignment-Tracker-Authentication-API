@@ -11,17 +11,17 @@
     - Requires authentication
     - Update user information (first name, last name)
 
-3. **User Login:** `/login/`
+3. **User Login:** `/accounts/login/`
     - Method: `POST`
     - Input: Email and password
     - Returns user information
 
-4. **User Signup:** `/signup/`
+4. **User Signup:** `/accounts/signup/`
     - Method: `POST`
     - Input: First name, last name, email, and password
     - Returns success message
 
-5. **OTP Email account Activation:** `/activate-account/`
+5. **OTP Email account Activation:** `/accounts/activate-account/`
    
    - please get the activation code from the tty , due to the issue
    [#1](https://github.com/wassim31/attraxia_django_assessment/issues/1)
@@ -31,24 +31,24 @@
     - Input: Activation code
     - Activates user accounts so that users can login
 
-6. **User Logout:** `/logout/`
+6. **User Logout:** `/accounts/logout/`
     - Method: `POST`
     - Requires authentication
     - Logs out the user
 
-7. **Password Reset Request:** `/password-reset/`
+7. **Password Reset Request:** `/accounts/password-reset/`
     - Method: `POST`
     - Input: Email
     - Sends a verification code for password reset to the user's email
 
-8. **Password Reset Verify:** `/password-reset/verify/`
+8. **Password Reset Verify:** `/accounts/password-reset/verify/`
     - Method: `POST`
     - Input: Verification code and new password
     - Resets the user's password
 
 
 
-9. **Password Change:** `/password-change/`
+9. **Password Change:** `/accounts/password-change/`
     - Method: `POST`
     - Requires authentication
     - Input: Old password and new password
@@ -56,4 +56,4 @@
 
 ### 2- Assignments endpoints (using ViewSet)
 
-- Just type : `127.0.0.1:8000/api/assignments` (use DRF postman-like page) or curl and specify the http method
+- Just type : `127.0.0.1:8000/assignments` (use DRF postman-like page) or curl and specify the http method
