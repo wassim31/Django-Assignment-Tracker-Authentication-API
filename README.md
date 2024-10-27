@@ -1,10 +1,12 @@
-### API Endpoints (i read that the norm is to use SwaggerAPI in prod env) 
+## API Endpoints (must be a SwaggerAPI template, DRF includes built-in postman for testing)
 
-1. **User Account Information:** `/account/`
+### 1- Accounts endpoints 
+
+1. **User account Information:** `/accounts/`
     - Method: `GET`
     - Requires authentication
 
-2. **User Account Change:** `/account/change/`
+2. **User account Change:** `/accounts/change/`
     - Method: `POST`
     - Requires authentication
     - Update user information (first name, last name)
@@ -19,7 +21,7 @@
     - Input: First name, last name, email, and password
     - Returns success message
 
-5. ** OTP Email Account Activation:** `/activate-account/`
+5. **OTP Email account Activation:** `/activate-account/`
    
    - please get the activation code from the tty , due to the issue
    [#1](https://github.com/wassim31/attraxia_django_assessment/issues/1)
@@ -27,7 +29,7 @@
 
     - Method: `POST`
     - Input: Activation code
-    - Activates user account so that users can login
+    - Activates user accounts so that users can login
 
 6. **User Logout:** `/logout/`
     - Method: `POST`
@@ -59,3 +61,7 @@
     - Requires authentication
     - Input: Old password and new password
     - Changes the user's password
+
+### 2- Assignments endpoints
+
+- Just type : 127.0.0.1:8000/api/assignments (use DRF postman-like page)
