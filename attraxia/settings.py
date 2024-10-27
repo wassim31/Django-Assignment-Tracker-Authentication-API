@@ -11,11 +11,17 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from dotenv import load_dotenv
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+
+# Load the .env file
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -79,24 +85,17 @@ WSGI_APPLICATION = 'attraxia.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "OPTIONS": {
-            "service": "my_service", 
-            "passfile": ".my_pgpass", 
-        },
-    }
-}
-DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'attraxia',
-        'USER': 'wass',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+        }
+        
 }
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
@@ -161,13 +160,13 @@ AUTH_USER_MODEL = 'user_authentification.CustomUser'
  
 # Email settings for OTP and verification
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.your-email-provider.com'
-EMAIL_PORT = 587
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = True
-EMAIL_HOST_ = 'wassim.boussebha@inttic.dz'
-EMAIL_HOST_PASSWORD = 'doudi123'
+EMAIL_HOST_ = os.getenv('EMAIL_HOST_')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-import logging
+print(EMAIL_HOST_)
 
 LOGGING = {
     'version': 1,
