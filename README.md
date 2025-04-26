@@ -1,3 +1,42 @@
+# Django Assignment Tracker & Authentication API
+
+This project is a full-featured Django REST API that implements secure user authentication and a real-time assignment tracking system. It was developed as part of a backend development assignment.
+
+## 🔐 Authentication Features
+
+- Built with Django's built-in authentication system and Django REST Framework's token-based authentication.
+- Secure password hashing and storage using Django's default PBKDF2.
+- Endpoints:
+  - **User Registration** with OTP validation and email verification.
+  - **Login** and **Logout** using token-based authentication.
+  - **Password Reset** functionality with secure email-based reset flow.
+- Full unit test coverage for all authentication-related endpoints.
+
+## 📋 Assignment Tracking
+
+- A dedicated model to track assignments with the following fields:
+  - `name`: assignment name
+  - `description`: details about the assignment
+  - `status`: one of `todo`, `in progress`, `done`, `error`
+  - `created_at`, `updated_at`: auto-managed timestamps
+  - `assignee`: ForeignKey to the user
+- REST API endpoints include:
+  - Filtering, sorting, pagination, and search support.
+  - Full CRUD operations (Create, Read, Update, Delete).
+- All endpoints are protected with appropriate permissions.
+
+## 🗃️ Database
+
+- Powered by **PostgreSQL**, fully integrated with Django.
+- Extended with **TimescaleDB** for time-series optimizations and performance tuning on timestamped assignment data.
+- Demonstrates optimized queries for time-based operations.
+
+## 🧪 Testing
+
+- Unit tests implemented for:
+  - User registration, login, logout, password reset.
+  - Assignment creation, update, deletion, and retrieval.
+
 ## API Endpoints (must be a SwaggerAPI template, DRF includes built-in postman for testing)
 
 ### 1- Accounts endpoints (Using APIView)
